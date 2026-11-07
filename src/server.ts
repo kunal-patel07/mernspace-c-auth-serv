@@ -1,8 +1,3 @@
-function gg() {
-    const user = {
-        myName: "Krunal",
-    }
-    return user
-}
+import { Config } from "./config/index.js"
 
-gg()
+console.log(Config.PORT)
