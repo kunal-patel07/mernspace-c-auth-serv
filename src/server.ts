@@ -1,5 +1,8 @@
-function welcome(name: string) {
-  console.log("welcome" + name);
+ 
+
+const user =  {
+  myName : "Krunal"
 }
 
-welcome("ds");
+const l1  = user.myName
+console.log(l1) 
