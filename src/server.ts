@@ -1,6 +1,8 @@
-const user = {
-    myName: "Krunal",
+function gg() {
+    const user = {
+        myName: "Krunal",
+    }
+    return user
 }
 
-const l1 = user.myName
-console.log(l1)
+gg()
