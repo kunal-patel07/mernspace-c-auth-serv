@@ -1,0 +1,37 @@
+import winston from "winston"
+import { Config } from "./index.js"
+const logger = winston.createLogger({
+    level: "info",
+    defaultMeta: {
+        serviceName: "auth-service",
+    },
+    transports: [
+        new winston.transports.File({
+            level: "info",
+            dirname: "logs",
+            filename: "combined.log",
+            format: winston.format.combine(
+                winston.format.timestamp(),
+                winston.format.json(),
+            ),
+        }),
+        new winston.transports.File({
+            level: "error",
+            dirname: "logs",
+            filename: "errors.log",
+            format: winston.format.combine(
+                winston.format.timestamp(),
+                winston.format.json(),
+            ),
+        }),
+        new winston.transports.Console({
+            level: "info",
+            format: winston.format.combine(
+                winston.format.timestamp(),
+                winston.format.json(),
+            ),
+            silent: Config.NODE_ENV === "testing",
+        }),
+    ],
+})
+export default logger
