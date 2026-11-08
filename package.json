@@ -15,7 +15,7 @@
     "type": "module",
     "main": "index.js",
     "scripts": {
-    "dev": "nodemon --legacy-watch --exec tsx src/server.ts",
+        "dev": "nodemon --legacy-watch --exec tsx src/server.ts",
         "format:fix": "prettier . --write",
         "format:check": "prettier . --check",
         "lint:check": "eslint .",

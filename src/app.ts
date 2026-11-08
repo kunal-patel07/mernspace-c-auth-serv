@@ -4,7 +4,7 @@ import express, {
     type Response,
 } from "express"
 import type { HttpError } from "http-errors"
-import logger from "./logger.js"
+import logger from "./config/logger.js"
 
 const app = express()
 

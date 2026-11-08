@@ -1,4 +1,4 @@
-import app from "./config/app.js"
+import app from "./app.js"
 import { Config } from "./config/index.js"
 import logger from "./config/logger.js"
 

@@ -2,7 +2,7 @@ import request from "supertest"
 
 import { describe, it } from "@jest/globals"
 import { calculateDiscount } from "./src/utils.js"
-import app from "./src/config/app.js"
+import app from "./src/app.js"
 
 describe("App", () => {
     it("should return correct discount", () => {
