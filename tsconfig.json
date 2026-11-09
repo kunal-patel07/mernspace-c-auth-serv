@@ -5,6 +5,7 @@
         "moduleResolution": "NodeNext",
         "rootDir": ".",
         "outDir": "./dist",
+        "lib":["ES6"],
         "types": ["node", "jest"],
         "sourceMap": true,
         "declaration": true,
@@ -15,5 +16,8 @@
         "skipLibCheck": true
     },
     "include": ["src/**/*.ts", "tests/**/*.ts", "*.spec.ts", "*.test.ts"],
-    "exclude": ["node_modules", "dist"]
+    "exclude": ["node_modules", "dist"],
+    
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
 }

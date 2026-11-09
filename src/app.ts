@@ -1,3 +1,4 @@
+import "reflect-metadata"
 import express, {
     type NextFunction,
     type Request,
@@ -9,13 +10,11 @@ import authRouter from "./routes/auth.js"
 
 const app = express()
 
-app.use(express.json())
-
 app.get("/", (req, res) => {
     res.send("come to auth service")
 })
 
-app.use("/", authRouter)
+app.use("/auth", authRouter)
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
