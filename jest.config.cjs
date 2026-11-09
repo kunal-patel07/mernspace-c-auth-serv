@@ -3,7 +3,7 @@ module.exports = {
     preset: "ts-jest/presets/default-esm",
     testEnvironment: "node",
     extensionsToTreatAsEsm: [".ts"],
-    verbose:true,
+    verbose: true,
 
     transform: {
         "^.+\\.tsx?$": [
