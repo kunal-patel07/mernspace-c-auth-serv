@@ -1,19 +1,17 @@
 /** @type {import('jest').Config} */
 module.exports = {
+    preset: "ts-jest/presets/default-esm",
     testEnvironment: "node",
-    verbose: true,
     extensionsToTreatAsEsm: [".ts"],
 
     transform: {
         "^.+\\.tsx?$": [
-            "@swc/jest",
+            "ts-jest",
             {
-                jsc: {
-                    parser: { syntax: "typescript" },
-                    target: "es2022",
-                },
-                module: {
-                    type: "es6",
+                useESM: true,
+                tsconfig: {
+                    module: "ESNext",
+                    moduleResolution: "bundler",
                 },
             },
         ],
