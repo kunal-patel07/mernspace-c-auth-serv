@@ -88,6 +88,30 @@ describe("POST /auth/register", () => {
             expect(users[0].lastName).toBe(userData.lastName)
             expect(users[0].email).toBe(userData.email)
         })
+
+        it("should return id of created user", async () => {
+            const userData = {
+                firstName: "Kunal",
+                lastName: "Patel",
+                email: "kunalpatel@google.com",
+                password: "secret",
+            }
+
+            //ACT
+
+            const response = await request(app)
+                .post("/auth/register")
+                .send(userData)
+            //ASSERT
+            const userRepository = connection.getRepository(User)
+
+            const user = await userRepository.findOneBy({
+                email: userData.email,
+            })
+            expect(response.body).toHaveProperty("id")
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            expect(response.body?.id).toBe(user?.id)
+        })
     })
 
     describe("fields are missing", () => {})
