@@ -1,23 +1,165 @@
 {
     "compilerOptions": {
-        "target": "ES2022",
-        "module": "NodeNext",
-        "moduleResolution": "NodeNext",
-        "rootDir": ".",
-        "outDir": "./dist",
-        "lib": ["ES6"],
-        "types": ["node", "jest"],
-        "sourceMap": true,
-        "declaration": true,
-        "strict": true,
-        "esModuleInterop": true,
-        "verbatimModuleSyntax": true,
-        "isolatedModules": true,
-        "skipLibCheck": true
-    },
-    "include": ["src/**/*.ts", "tests/**/*.ts", "*.spec.ts", "*.test.ts"],
-    "exclude": ["node_modules", "dist"],
+        /* =================================
+           LANGUAGE AND ENVIRONMENT
+        ================================= */
 
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+        "target": "ES2022",
+        // JavaScript version TypeScript compiles into.
+        // ES2022 is a good choice for modern Node.js.
+
+        "lib": ["ES2022"],
+        // Built-in type definitions for JavaScript APIs.
+        // Add "DOM" if your project needs browser APIs.
+
+        "module": "NodeNext",
+        // Module system. NodeNext follows Node.js ESM/CommonJS rules.
+
+        "moduleResolution": "NodeNext",
+        // How TypeScript resolves imported modules.
+
+
+        /* =================================
+           PROJECT STRUCTURE
+        ================================= */
+
+        "rootDir": "./src",
+        // Root directory of your source files.
+
+        "outDir": "./dist",
+        // Output directory for compiled JavaScript.
+
+      //   "baseUrl":".",
+        // Base directory for resolving non-relative imports.
+
+        // "paths": {
+        //     "@/*": ["src/*"]
+        // },
+        // Custom import aliases. Requires matching runtime configuration.
+
+
+        /* =================================
+           TYPE CHECKING
+        ================================= */
+
+        "strict": true,
+        // Enables all strict type-checking options.
+
+        "noImplicitAny": true,
+        // Reports variables with implicitly inferred 'any' types.
+
+        "strictNullChecks": true,
+        // Makes null and undefined separate types.
+
+        "strictFunctionTypes": true,
+        // Checks function parameter types more strictly.
+
+        "strictBindCallApply": true,
+        // Checks bind(), call(), and apply() arguments.
+
+        "strictPropertyInitialization": false,
+        // Requires class properties to be initialized in constructors.
+        // false is commonly used with TypeORM entities.
+
+        "noImplicitThis": true,
+        // Reports an implicit 'any' type for 'this'.
+
+        "useUnknownInCatchVariables": true,
+        // Catch clause variables are unknown instead of any.
+
+        // "noUnusedLocals": true,
+        // Reports unused local variables.
+
+        // "noUnusedParameters": true,
+        // Reports unused function parameters.
+
+        // "noImplicitReturns": true,
+        // Ensures functions return values on every code path.
+
+        // "noFallthroughCasesInSwitch": true,
+        // Prevents accidental switch-case fallthrough.
+
+        // "noUncheckedIndexedAccess": true,
+        // Adds undefined to unchecked array/object index access.
+
+
+        /* =================================
+           DECORATORS (TYPEORM)
+        ================================= */
+
+        "experimentalDecorators": true,
+        // Enables legacy TypeScript decorators used by TypeORM.
+
+        "emitDecoratorMetadata": true,
+        // Emits design-type metadata for decorated declarations.
+        // Requires reflect-metadata at runtime.
+
+
+        /* =================================
+           MODULE AND INTEROP
+        ================================= */
+
+        "esModuleInterop": true,
+        // Improves compatibility with CommonJS modules.
+
+        "allowSyntheticDefaultImports": true,
+        // Allows default imports from modules without default exports.
+
+        "verbatimModuleSyntax": true,
+        // Preserves imports/exports according to their syntax.
+
+        // "resolveJsonModule": true,
+        // Allows importing JSON files.
+
+        // "allowImportingTsExtensions": true,
+        // Allows .ts extensions in imports under supported configurations.
+
+        // "forceConsistentCasingInFileNames": true,
+        // Prevents imports with inconsistent file-name casing.
+
+
+        /* =================================
+           SOURCE MAPS AND DECLARATIONS
+        ================================= */
+
+        "sourceMap": true,
+        // Generates source maps for debugging.
+
+        "declaration": true,
+        // Generates .d.ts declaration files.
+
+        // "declarationMap": true,
+        // Generates source maps for declaration files.
+
+        // "removeComments": true,
+        // Removes comments from compiled JavaScript.
+
+
+        /* =================================
+           ADVANCED / BUILD OPTIONS
+        ================================= */
+
+        "isolatedModules": true,
+        // Ensures each file can be transpiled independently.
+        // Important for some Jest/SWC/Babel workflows.
+
+        "skipLibCheck": true
+        // Skips type checking of declaration files in dependencies.
+    },
+
+    /* =================================
+       FILES INCLUDED IN COMPILATION
+    ================================= */
+
+    "include": [
+        "src/**/*.ts",
+        "tests/**/*.ts",
+        "*.spec.ts",
+        "*.test.ts"
+    ],
+
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
 }

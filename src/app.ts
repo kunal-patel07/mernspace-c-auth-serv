@@ -9,7 +9,7 @@ import logger from "./config/logger.js"
 import authRouter from "./routes/auth.js"
 
 const app = express()
-
+app.use(express.json())
 app.get("/", (req, res) => {
     res.send("come to auth service")
 })
