@@ -18,7 +18,6 @@
         "moduleResolution": "NodeNext",
         // How TypeScript resolves imported modules.
 
-
         /* =================================
            PROJECT STRUCTURE
         ================================= */
@@ -29,14 +28,13 @@
         "outDir": "./dist",
         // Output directory for compiled JavaScript.
 
-      //   "baseUrl":".",
+        //   "baseUrl":".",
         // Base directory for resolving non-relative imports.
 
         // "paths": {
         //     "@/*": ["src/*"]
         // },
         // Custom import aliases. Requires matching runtime configuration.
-
 
         /* =================================
            TYPE CHECKING
@@ -82,7 +80,6 @@
         // "noUncheckedIndexedAccess": true,
         // Adds undefined to unchecked array/object index access.
 
-
         /* =================================
            DECORATORS (TYPEORM)
         ================================= */
@@ -93,7 +90,6 @@
         "emitDecoratorMetadata": true,
         // Emits design-type metadata for decorated declarations.
         // Requires reflect-metadata at runtime.
-
 
         /* =================================
            MODULE AND INTEROP
@@ -117,7 +113,6 @@
         // "forceConsistentCasingInFileNames": true,
         // Prevents imports with inconsistent file-name casing.
 
-
         /* =================================
            SOURCE MAPS AND DECLARATIONS
         ================================= */
@@ -133,7 +128,6 @@
 
         // "removeComments": true,
         // Removes comments from compiled JavaScript.
-
 
         /* =================================
            ADVANCED / BUILD OPTIONS
@@ -151,15 +145,7 @@
        FILES INCLUDED IN COMPILATION
     ================================= */
 
-    "include": [
-        "src/**/*.ts",
-        "tests/**/*.ts",
-        "*.spec.ts",
-        "*.test.ts"
-    ],
+    "include": ["src/**/*.ts", "tests/**/*.ts", "*.spec.ts", "*.test.ts"],
 
-    "exclude": [
-        "node_modules",
-        "dist"
-    ]
+    "exclude": ["node_modules", "dist"]
 }
