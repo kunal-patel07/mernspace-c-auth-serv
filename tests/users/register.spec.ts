@@ -12,7 +12,7 @@ import request from "supertest"
 import type { DataSource } from "typeorm"
 import { AppDataSource } from "../../src/config/data-source.js"
 import { User } from "../../src/entities/User.js"
-import { truncateTables } from "../utils/index.js"
+import { Roles } from "../../src/constants/index.js"
 describe("POST /auth/register", () => {
     let connection: DataSource
 
@@ -21,7 +21,8 @@ describe("POST /auth/register", () => {
     })
 
     beforeEach(async () => {
-        await truncateTables(connection)
+        await AppDataSource.dropDatabase()
+        await AppDataSource.synchronize()
     })
     afterAll(async () => {
         await connection.destroy()
@@ -111,6 +112,27 @@ describe("POST /auth/register", () => {
             expect(response.body).toHaveProperty("id")
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             expect(response.body?.id).toBe(user?.id)
+        })
+
+        it("should assign a customer role", async () => {
+            const userData = {
+                firstName: "Kunal",
+                lastName: "Patel",
+                email: "kunalpatel@google.com",
+                password: "secret",
+            }
+
+            //ACT
+
+            await request(app).post("/auth/register").send(userData)
+
+            const userRepository = connection.getRepository(User)
+
+            const users = await userRepository.find()
+
+            //ASSERT
+            expect(users[0]).toHaveProperty("role")
+            expect(users[0].role).toBe(Roles.CUSTOMER)
         })
     })
 
