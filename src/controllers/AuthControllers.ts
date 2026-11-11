@@ -2,7 +2,7 @@ import type { NextFunction, Response } from "express"
 import type { ResgisterUserRequest } from "../types/index.js"
 import { UserService } from "../services/UserService.js"
 import type { Logger } from "winston"
-
+import bcrypt from "bcrypt"
 export class AuthController {
     constructor(
         private userService: UserService,
@@ -15,6 +15,9 @@ export class AuthController {
     ) {
         const { firstName, lastName, email, password } = req.body
 
+        //hash the password
+        const saltRounds = 10
+        const hashedPassword = await bcrypt.hash(password, saltRounds)
         this.logger.debug("new request to register a user", {
             firstName,
             lastName,
@@ -27,7 +30,7 @@ export class AuthController {
                 firstName,
                 lastName,
                 email,
-                password,
+                password: hashedPassword,
             })
             this.logger.info("user has been registered", { id: user.id })
             res.status(201).json({ id: user.id })

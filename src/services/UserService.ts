@@ -7,6 +7,13 @@ import { Roles } from "../constants/index.js"
 export class UserService {
     constructor(private userRepository: Repository<User>) {}
     async create({ firstName, lastName, email, password }: UserData) {
+        const user = await this.userRepository.findOne({
+            where: { email: email },
+        })
+        if (user) {
+            const error = createHttpError(400, "email already exists!")
+            throw error
+        }
         try {
             return await this.userRepository.save({
                 firstName,
