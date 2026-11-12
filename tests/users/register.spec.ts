@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import app from "../../src/app.js"
 
 import {
@@ -36,7 +37,7 @@ describe("POST /auth/register", () => {
                 firstName: "Kunal",
                 lastName: "Patel",
                 email: "kunalpatel@google.com",
-                password: "secret",
+                password: " Kunal@12345",
             }
 
             //ACT
@@ -55,7 +56,7 @@ describe("POST /auth/register", () => {
                 firstName: "Kunal",
                 lastName: "Patel",
                 email: "kunalpatel@google.com",
-                password: "secret",
+                password: " Kunal@12345",
             }
 
             //ACT
@@ -74,7 +75,7 @@ describe("POST /auth/register", () => {
                 firstName: "Kunal",
                 lastName: "Patel",
                 email: "kunalpatel@google.com",
-                password: "secret",
+                password: " Kunal@12345",
             }
 
             //ACT
@@ -95,7 +96,7 @@ describe("POST /auth/register", () => {
                 firstName: "Kunal",
                 lastName: "Patel",
                 email: "kunalpatel@google.com",
-                password: "secret",
+                password: " Kunal@12345",
             }
 
             //ACT
@@ -110,7 +111,7 @@ describe("POST /auth/register", () => {
                 email: userData.email,
             })
             expect(response.body).toHaveProperty("id")
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+             
             expect(response.body?.id).toBe(user?.id)
         })
 
@@ -119,7 +120,7 @@ describe("POST /auth/register", () => {
                 firstName: "Kunal",
                 lastName: "Patel",
                 email: "kunalpatel@google.com",
-                password: "secret",
+                password: " Kunal@12345",
             }
 
             //ACT
@@ -140,7 +141,7 @@ describe("POST /auth/register", () => {
                 firstName: "Kunal",
                 lastName: "Patel",
                 email: "kunalpatel@google.com",
-                password: "secret",
+                password: " Kunal@12345",
             }
 
             //ACT
@@ -162,7 +163,7 @@ describe("POST /auth/register", () => {
                 firstName: "Kunal",
                 lastName: "Patel",
                 email: "kunalpatel@google.com",
-                password: "secret",
+                password: " Kunal@12345",
             }
 
             const userRepository = connection.getRepository(User)
@@ -185,7 +186,7 @@ describe("POST /auth/register", () => {
                 firstName: "Kunal",
                 lastName: "Patel",
                 email: "",
-                password: "secret",
+                password: " Kunal@12345",
             }
 
             const response = await request(app)
@@ -201,7 +202,7 @@ describe("POST /auth/register", () => {
                 firstName: "",
                 lastName: "Patel",
                 email: "kunal@google.com",
-                password: "secret",
+                password: " Kunal@12345",
             }
             const response = await request(app)
                 .post("/auth/register")
@@ -216,7 +217,7 @@ describe("POST /auth/register", () => {
                 firstName: "Kunal",
                 lastName: "",
                 email: "kunal@google.com",
-                password: "secret",
+                password: " Kunal@12345",
             }
             const response = await request(app)
                 .post("/auth/register")
@@ -249,7 +250,7 @@ describe("POST /auth/register", () => {
                     firstName: "Kunal",
                     lastName: "Patel",
                     email: " kunal@google.com ",
-                    password: "secret",
+                    password: " Kunal@12345",
                 }
 
                 await request(app).post("/auth/register").send(userData)
@@ -265,7 +266,7 @@ describe("POST /auth/register", () => {
                     firstName: "Kunal",
                     lastName: "Patel",
                     email: "kunalgoogle.com",
-                    password: "secret",
+                    password: " Kunal@12345",
                 }
                 const response = await request(app)
                     .post("/auth/register")
@@ -273,6 +274,39 @@ describe("POST /auth/register", () => {
                 const userRepository = connection.getRepository(User)
                 const users = await userRepository.find()
                 expect(response.statusCode).toBe(400)
+                expect(users).toHaveLength(0)
+            })
+            it("should return 400 status code if password length is less than 8 character", async () => {
+                const userData = {
+                    firstName: "Kunal",
+                    lastName: "Patel",
+                    email: "kunal@google.com",
+                    password: "Kunal",
+                }
+                const response = await request(app)
+                    .post("/auth/register")
+                    .send(userData)
+                const userRepository = connection.getRepository(User)
+                const users = await userRepository.find()
+                expect(response.statusCode).toBe(400)
+                expect(users).toHaveLength(0)
+            })
+            it("should return array of error messages if email is missing", async () => {
+                const userData = {
+                    firstName: "Kunal",
+                    lastName: "Patel",
+                    email: "",
+                    password: "Kunal@12345",
+                }
+                const response = await request(app)
+                    .post("/auth/register")
+                    .send(userData)
+                const userRepository = connection.getRepository(User)
+                const users = await userRepository.find()
+                expect(response.body.errors).toBeInstanceOf(Array)
+                expect(response.body.errors).toHaveLength(1)
+                expect(response.body.errors[0].msg).toBe("Email is required")
+                expect(response.body.errors[0].path).toBe("email")
                 expect(users).toHaveLength(0)
             })
         })
