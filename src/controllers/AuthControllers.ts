@@ -3,6 +3,7 @@ import type { ResgisterUserRequest } from "../types/index.js"
 import { UserService } from "../services/UserService.js"
 import type { Logger } from "winston"
 import bcrypt from "bcrypt"
+import { validationResult } from "express-validator"
 export class AuthController {
     constructor(
         private userService: UserService,
@@ -13,8 +14,12 @@ export class AuthController {
         res: Response,
         next: NextFunction,
     ) {
-        const { firstName, lastName, email, password } = req.body
+        const result = validationResult(req)
+        if (!result.isEmpty()) {
+            return res.status(400).json({ errors: result.array() })
+        }
 
+        const { firstName, lastName, email, password } = req.body
         //hash the password
         const saltRounds = 10
         const hashedPassword = await bcrypt.hash(password, saltRounds)
