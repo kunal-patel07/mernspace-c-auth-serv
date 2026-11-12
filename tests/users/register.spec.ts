@@ -260,6 +260,21 @@ describe("POST /auth/register", () => {
                 const user = users[0]
                 expect(user.email).toBe("kunal@google.com")
             })
+            it("should return 400 status code if email is not a valid email", async () => {
+                const userData = {
+                    firstName: "Kunal",
+                    lastName: "Patel",
+                    email: "kunalgoogle.com",
+                    password: "secret",
+                }
+                const response = await request(app)
+                    .post("/auth/register")
+                    .send(userData)
+                const userRepository = connection.getRepository(User)
+                const users = await userRepository.find()
+                expect(response.statusCode).toBe(400)
+                expect(users).toHaveLength(0)
+            })
         })
     })
 })
