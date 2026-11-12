@@ -20,6 +20,7 @@ export class AuthController {
         }
 
         const { firstName, lastName, email, password } = req.body
+
         //hash the password
         const saltRounds = 10
         const hashedPassword = await bcrypt.hash(password, saltRounds)
