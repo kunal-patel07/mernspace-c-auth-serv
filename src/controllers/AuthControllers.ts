@@ -8,6 +8,8 @@ import bcrypt from "bcrypt"
 import { validationResult } from "express-validator"
 import createHttpError from "http-errors"
 import { Config } from "../config/index.js"
+import { AppDataSource } from "../config/data-source.js"
+import { RefreshToken } from "../entities/RefreshToken.js"
 export class AuthController {
     constructor(
         private userService: UserService,
@@ -73,7 +75,15 @@ export class AuthController {
                 maxAge: 1000 * 60 * 60, //1h
                 httpOnly: true,
             })
+            const MS_IN_YEAR = 1000 * 60 * 60 * 24 * 365
 
+            const refreshTokenRepository =
+                AppDataSource.getRepository(RefreshToken)
+
+            const newRefreshToken = await refreshTokenRepository.save({
+                user: user,
+                expiresAt: new Date(Date.now() + MS_IN_YEAR),
+            })
             const refreshToken = jwt.sign(
                 payload,
                 Config.REFRESH_TOKEN_SECRET!,
@@ -81,6 +91,7 @@ export class AuthController {
                     algorithm: "HS256",
                     expiresIn: "1y",
                     issuer: "auth-service",
+                    jwtid: String(newRefreshToken.id),
                 },
             )
             res.cookie("refreshToken", refreshToken, {
