@@ -7,6 +7,7 @@ import { type Logger } from "winston"
 import bcrypt from "bcrypt"
 import { validationResult } from "express-validator"
 import createHttpError from "http-errors"
+import { Config } from "../config/index.js"
 export class AuthController {
     constructor(
         private userService: UserService,
@@ -73,11 +74,15 @@ export class AuthController {
                 httpOnly: true,
             })
 
-            const refreshToken = jwt.sign(payload, privateKey, {
-                algorithm: "RS256",
-                expiresIn: "1y",
-                issuer: "auth-service",
-            })
+            const refreshToken = jwt.sign(
+                payload,
+                Config.REFRESH_TOKEN_SECRET!,
+                {
+                    algorithm: "HS256",
+                    expiresIn: "1y",
+                    issuer: "auth-service",
+                },
+            )
             res.cookie("refreshToken", refreshToken, {
                 domain: "localhost",
                 sameSite: "strict",
