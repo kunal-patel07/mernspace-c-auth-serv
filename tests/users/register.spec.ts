@@ -263,6 +263,7 @@ describe("POST /auth/register", () => {
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
             expect(users).toHaveLength(0)
+            expect(users).toHaveLength(1)
         })
         it("should return 400 status code if firstname is missing", async () => {
             const userData = {
