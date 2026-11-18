@@ -136,7 +136,7 @@ export class AuthController {
                 httpOnly: true,
             })
             this.logger.info("User has been logged in", { user: user.id })
-            res.status(201).json({ id: user.id })
+            res.json({ id: user.id })
         } catch (error) {
             next(error)
             this.logger.error("user is not registered")

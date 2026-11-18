@@ -64,19 +64,19 @@ describe("POST /auth/login", () => {
     })
 
     describe("given all valid credential", () => {
-        it("should return 201 status code", async () => {
+        it("should return 200 status code", async () => {
             const response = await request(app)
                 .post("/auth/login")
                 .send(credentials)
 
-            expect(response.statusCode).toBe(201)
+            expect(response.statusCode).toBe(200)
         })
 
         it("should return valid json response", async () => {
             const response = await request(app)
                 .post("/auth/login")
                 .send(credentials)
-            expect(response.statusCode).toBe(201)
+            expect(response.statusCode).toBe(200)
             expect(response.headers["content-type"]).toEqual(
                 expect.stringContaining("application/json"),
             )
@@ -87,7 +87,7 @@ describe("POST /auth/login", () => {
                 .post("/auth/login")
                 .send(credentials)
 
-            expect(response.statusCode).toBe(201)
+            expect(response.statusCode).toBe(200)
             expect(response.body).toEqual({ id: user.id })
             expect(response.text).not.toContain(credentials.password)
             expect(response.text).not.toContain(hashedPassword)
@@ -98,7 +98,7 @@ describe("POST /auth/login", () => {
                 .post("/auth/login")
                 .send(credentials)
 
-            expect(response.statusCode).toBe(201)
+            expect(response.statusCode).toBe(200)
             const users = await connection.getRepository(User).find()
             expect(users).toHaveLength(1)
             expect(users[0]).toMatchObject({
@@ -114,7 +114,7 @@ describe("POST /auth/login", () => {
                 .post("/auth/login")
                 .send(credentials)
 
-            expect(response.statusCode).toBe(201)
+            expect(response.statusCode).toBe(200)
             expect(isJwt(getToken(response, "accessToken"))).toBe(true)
             expect(isJwt(getToken(response, "refreshToken"))).toBe(true)
             for (const name of ["accessToken", "refreshToken"]) {
@@ -159,7 +159,7 @@ describe("POST /auth/login", () => {
                 relations: { user: true },
             })
 
-            expect(response.statusCode).toBe(201)
+            expect(response.statusCode).toBe(200)
             expect(tokens).toHaveLength(1)
             expect(tokens[0].user.id).toBe(user.id)
             const yearInMs = 1000 * 60 * 60 * 24 * 365
@@ -187,7 +187,7 @@ describe("POST /auth/login", () => {
                 .post("/auth/login")
                 .send({ ...credentials, email: ` ${credentials.email} ` })
 
-            expect(response.statusCode).toBe(201)
+            expect(response.statusCode).toBe(200)
             expect(response.body).toEqual({ id: user.id })
         })
 
@@ -204,7 +204,7 @@ describe("POST /auth/login", () => {
                 { algorithms: ["RS256"], issuer: "auth-service" },
             ) as JwtPayload
 
-            expect(response.statusCode).toBe(201)
+            expect(response.statusCode).toBe(200)
             expect(payload.role).toBe(Roles.CUSTOMER)
             const savedUser = await connection
                 .getRepository(User)
@@ -220,8 +220,8 @@ describe("POST /auth/login", () => {
                 .post("/auth/login")
                 .send(credentials)
 
-            expect(first.statusCode).toBe(201)
-            expect(second.statusCode).toBe(201)
+            expect(first.statusCode).toBe(200)
+            expect(second.statusCode).toBe(200)
             expect(getToken(first, "refreshToken")).not.toBe(
                 getToken(second, "refreshToken"),
             )
