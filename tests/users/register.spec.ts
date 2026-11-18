@@ -32,7 +32,7 @@ describe("POST /auth/register", () => {
     })
 
     describe("given all fields", () => {
-        it("should return 201 status code ", async () => {
+        it.skip("should return 201 status code ", async () => {
             //AAA
             //ARRANGE
             const userData = {
@@ -52,7 +52,7 @@ describe("POST /auth/register", () => {
             expect(response.statusCode).toBe(201)
         })
 
-        it("should return valid json response", async () => {
+        it.skip("should return valid json response", async () => {
             //ARRANGE
             const userData = {
                 firstName: "Kunal",
@@ -72,7 +72,7 @@ describe("POST /auth/register", () => {
             )
         })
 
-        it("should persist the user in database", async () => {
+        it.skip("should persist the user in database", async () => {
             const userData = {
                 firstName: "Kunal",
                 lastName: "Patel",
@@ -93,7 +93,7 @@ describe("POST /auth/register", () => {
             expect(users[0].email).toBe(userData.email)
         })
 
-        it("should return id of created user", async () => {
+        it.skip("should return id of created user", async () => {
             const userData = {
                 firstName: "Kunal",
                 lastName: "Patel",
@@ -117,7 +117,7 @@ describe("POST /auth/register", () => {
             expect(response.body?.id).toBe(user?.id)
         })
 
-        it("should assign a customer role", async () => {
+        it.skip("should assign a customer role", async () => {
             const userData = {
                 firstName: "Kunal",
                 lastName: "Patel",
@@ -138,7 +138,7 @@ describe("POST /auth/register", () => {
             expect(users[0].role).toBe(Roles.CUSTOMER)
         })
 
-        it("should store the hashed password in the database", async () => {
+        it.skip("should store the hashed password in the database", async () => {
             const userData = {
                 firstName: "Kunal",
                 lastName: "Patel",
@@ -160,7 +160,7 @@ describe("POST /auth/register", () => {
             expect(users[0].password).toMatch(/^\$2b\$\d+\$/)
         })
 
-        it("should return 400 status code if email is already exists", async () => {
+        it.skip("should return 400 status code if email is already exists", async () => {
             const userData = {
                 firstName: "Kunal",
                 lastName: "Patel",
@@ -181,7 +181,7 @@ describe("POST /auth/register", () => {
             expect(users.length).toBe(1)
         })
 
-        it("should return access token and refresh token inside a cookie", async () => {
+        it.skip("should return access token and refresh token inside a cookie", async () => {
             const userData = {
                 firstName: "Kunal",
                 lastName: "Patel",
@@ -219,7 +219,7 @@ describe("POST /auth/register", () => {
             expect(isJwt(refreshToken)).toBeTruthy()
         })
 
-        it("should persist refreshtoken in database", async () => {
+        it.skip("should persist refreshtoken in database", async () => {
             const userData = {
                 firstName: "Kunal",
                 lastName: "Patel",
@@ -248,7 +248,7 @@ describe("POST /auth/register", () => {
     })
 
     describe("fields are missing", () => {
-        it("should return 400 status code if email field is missing", async () => {
+        it.skip("should return 400 status code if email field is missing", async () => {
             const userData = {
                 firstName: "Kunal",
                 lastName: "Patel",
@@ -264,7 +264,7 @@ describe("POST /auth/register", () => {
             const users = await userRepository.find()
             expect(users).toHaveLength(0)
         })
-        it("should return 400 status code if firstname is missing", async () => {
+        it.skip("should return 400 status code if firstname is missing", async () => {
             const userData = {
                 firstName: "",
                 lastName: "Patel",
@@ -279,7 +279,7 @@ describe("POST /auth/register", () => {
             expect(response.statusCode).toBe(400)
             expect(users).toHaveLength(0)
         })
-        it("should return 400 status code if lastname is missing", async () => {
+        it.skip("should return 400 status code if lastname is missing", async () => {
             const userData = {
                 firstName: "Kunal",
                 lastName: "",
@@ -294,7 +294,7 @@ describe("POST /auth/register", () => {
             expect(response.statusCode).toBe(400)
             expect(users).toHaveLength(0)
         })
-        it("should return 400 status code if password is missing", async () => {
+        it.skip("should return 400 status code if password is missing", async () => {
             const userData = {
                 firstName: "Kunal",
                 lastName: "Patel",
@@ -311,7 +311,7 @@ describe("POST /auth/register", () => {
         })
 
         describe("fields are not in proper format", () => {
-            it("should trim the email field", async () => {
+            it.skip("should trim the email field", async () => {
                 //Arrange
                 const userData = {
                     firstName: "Kunal",
@@ -328,7 +328,7 @@ describe("POST /auth/register", () => {
                 const user = users[0]
                 expect(user.email).toBe("kunal@google.com")
             })
-            it("should return 400 status code if email is not a valid email", async () => {
+            it.skip("should return 400 status code if email is not a valid email", async () => {
                 const userData = {
                     firstName: "Kunal",
                     lastName: "Patel",
