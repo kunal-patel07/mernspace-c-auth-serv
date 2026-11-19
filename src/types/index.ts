@@ -1,5 +1,4 @@
-import Request from "express"
-
+import type { Request } from "express"
 export interface UserData {
     firstName: string
     lastName: string
@@ -9,4 +8,11 @@ export interface UserData {
 
 export interface ResgisterUserRequest extends Request {
     body: UserData
+}
+
+export interface AuthRequest extends Request {
+    auth: {
+        sub: string
+        role: string
+    }
 }

@@ -1,6 +1,6 @@
 import type { NextFunction, Response } from "express"
 import type { JwtPayload } from "jsonwebtoken"
-import type { ResgisterUserRequest } from "../types/index.js"
+import type { AuthRequest, ResgisterUserRequest } from "../types/index.js"
 import { UserService } from "../services/UserService.js"
 import { type Logger } from "winston"
 import bcrypt from "bcrypt"
@@ -142,5 +142,10 @@ export class AuthController {
             this.logger.error("user is not registered")
             return
         }
+    }
+
+    async self(req: AuthRequest, res: Response) {
+        const user = await this.userService.findById(Number(req.auth.sub))
+        res.json({ user })
     }
 }
