@@ -92,5 +92,37 @@ describe("GET /auth/self", () => {
                 }),
             )
         })
+        it("should not return the password field", async () => {
+            // ARRANGE
+            const userData = {
+                firstName: "Kunal",
+                lastName: "Patel",
+                email: "kunalpatel@google.com",
+                password: "Kunal@12345",
+            }
+
+            const userRepository = AppDataSource.getRepository(User)
+
+            // const hashedPassword = await bcrypt.hash(userData.password, 10)
+
+            const data = await userRepository.save({
+                ...userData,
+                // password: hashedPassword,
+                role: Roles.CUSTOMER,
+            })
+
+            const accessToken = jwks.token({
+                sub: String(data.id),
+                role: data.role,
+            })
+
+            // ACT
+            const response = await request(app)
+                .get("/auth/self")
+                .set("Cookie", [`accessToken=${accessToken}`])
+            expect(response.body as Record<string, string>).not.toHaveProperty(
+                "password",
+            )
+        })
     })
 })
