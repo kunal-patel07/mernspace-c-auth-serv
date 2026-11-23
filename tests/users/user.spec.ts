@@ -86,6 +86,7 @@ describe("GET /auth/self", () => {
                 .set("Cookie", [`accessToken=${accessToken}`])
 
             // ASSERT
+            expect(response.body).not.toHaveProperty("password")
             expect(response.body).toEqual(
                 expect.objectContaining({
                     user: expect.objectContaining({ id: data.id }),
@@ -120,6 +121,8 @@ describe("GET /auth/self", () => {
             const response = await request(app)
                 .get("/auth/self")
                 .set("Cookie", [`accessToken=${accessToken}`])
+                .send()
+
             expect(response.body as Record<string, string>).not.toHaveProperty(
                 "password",
             )
