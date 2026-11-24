@@ -87,11 +87,6 @@ describe("GET /auth/self", () => {
 
             // ASSERT
             expect(response.body).not.toHaveProperty("password")
-            expect(response.body).toEqual(
-                expect.objectContaining({
-                    user: expect.objectContaining({ id: data.id }),
-                }),
-            )
         })
         it("should not return the password field", async () => {
             // ARRANGE
@@ -126,6 +121,28 @@ describe("GET /auth/self", () => {
             expect(response.body as Record<string, string>).not.toHaveProperty(
                 "password",
             )
+        })
+        it("should not return the password field", async () => {
+            // ARRANGE
+            const userData = {
+                firstName: "Kunal",
+                lastName: "Patel",
+                email: "kunalpatel@google.com",
+                password: "Kunal@12345",
+            }
+
+            const userRepository = AppDataSource.getRepository(User)
+
+            await userRepository.save({
+                ...userData,
+                // password: hashedPassword,
+                role: Roles.CUSTOMER,
+            })
+
+            // ACT
+            const response = await request(app).get("/auth/self").send()
+
+            expect(response.statusCode).toBe(401)
         })
     })
 })

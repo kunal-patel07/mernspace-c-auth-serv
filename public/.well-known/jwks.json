@@ -1,0 +1,10 @@
+{
+    "keys": [
+        {
+            "kty": "RSA",
+            "use": "sig",
+            "n": "AJ1ynv48OxtOeiRyHAiDNj0SvJunkbp8Xy9EPJP3Se-VCMFfQ8wIyJPItig7y4Wm-6sqivPo-xRJhTg3cu3Cis1xP5Gx6kN73hkSSL4ihmSFZwTCY7aMNR7EnWqG4cGY_mVldhxPHoutgWnx066-bSItmpsfy0mC3Gdv7FC7tZm3iRaNVj8Mw8mm9cLUdKiLnenBPt6Z3l0M0KHfU3UehNmj9xHZTdstjR-BC_4T6mkX4eYmyFF9afUHemhNabto6NrlaeE7ojc5BdMlcGc37uVod-jd5OT7WQsVDJIItmNPkS312cRIhZWBYijrJh_I5D5dwLiCpGcYELmQlJZpSos",
+            "e": "AQAB"
+        }
+    ]
+}

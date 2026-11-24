@@ -10,6 +10,11 @@ import logger from "./config/logger.js"
 import authRouter from "./routes/auth.js"
 
 const app = express()
+app.use(
+    "/.well-known",
+    express.static("public/.well-known", { dotfiles: "allow" }),
+)
+app.use(express.static("public"))
 app.use(express.json())
 app.use(cookieParser())
 app.get("/", (req, res) => {
@@ -22,7 +27,7 @@ app.use("/auth", authRouter)
 app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
     logger.error(err.message)
 
-    const statusCode = err.statusCode || 500
+    const statusCode = err.statusCode || err.status || 500
 
     res.status(statusCode).json({
         errors: {
